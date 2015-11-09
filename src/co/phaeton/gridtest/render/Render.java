@@ -9,7 +9,7 @@ public class Render implements Runnable {
     private Thread thread;
     private WindowFrame window;
     private ArrayList<JComponent> componentList;
-    private boolean execute;
+    private volatile boolean execute;
 
     public Render(WindowFrame window) {
         this.thread = new Thread(this);
@@ -24,7 +24,6 @@ public class Render implements Runnable {
             Graphics2D graphics2D = (Graphics2D) this.window.getBufferStrategy().getDrawGraphics();
 
             for (JComponent component : componentList) {
-                System.out.println("Rendering: " + component.getClass().toString());
                 component.paint(graphics2D);
             }
 

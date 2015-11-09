@@ -18,6 +18,12 @@ public class Main {
         render.getComponentList().add(new RenderTile());
         render.getComponentList().add(new RenderGridLines(mapgrid));
         render.start();
+        try {
+            Thread.currentThread().sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        render.stop();
 
         for (int y = 0; y < mapgrid.getHeight(); y++) {
             for (int x = 0; x < mapgrid.getWidth(); x++) {
