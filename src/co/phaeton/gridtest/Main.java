@@ -1,5 +1,8 @@
 package co.phaeton.gridtest;
 
+import co.phaeton.gridtest.log.LogStream;
+import co.phaeton.gridtest.log.LogType;
+import co.phaeton.gridtest.log.Logger;
 import co.phaeton.gridtest.render.Render;
 import co.phaeton.gridtest.render.RenderGridLines;
 import co.phaeton.gridtest.render.RenderTile;
@@ -7,8 +10,13 @@ import co.phaeton.gridtest.render.WindowFrame;
 
 public class Main {
 
+    public static Logger logger;
+
     public static void main(String[] args) {
-        System.out.println("Hello world!\n");
+        logger = new Logger();
+        LogStream logStream = new LogStream(logger, "Main");
+
+        logStream.log(LogType.INFO, "Hello world!");
 
         MapGrid mapgrid = new MapGrid(20, 10, false, false);
 
@@ -18,12 +26,6 @@ public class Main {
         render.getComponentList().add(new RenderTile());
         render.getComponentList().add(new RenderGridLines(mapgrid));
         render.start();
-        try {
-            Thread.currentThread().sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        render.stop();
 
         for (int y = 0; y < mapgrid.getHeight(); y++) {
             for (int x = 0; x < mapgrid.getWidth(); x++) {

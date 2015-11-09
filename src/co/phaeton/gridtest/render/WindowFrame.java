@@ -4,8 +4,6 @@ import javax.swing.*;
 
 public class WindowFrame extends JFrame {
 
-    private JFrame frame;
-
     public WindowFrame() {
         this.setTitle("MapGrid Test");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

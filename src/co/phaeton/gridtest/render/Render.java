@@ -1,17 +1,23 @@
 package co.phaeton.gridtest.render;
 
+import co.phaeton.gridtest.log.LogStream;
+import co.phaeton.gridtest.log.LogType;
+import co.phaeton.gridtest.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Render implements Runnable {
 
+    private LogStream logStream;
     private Thread thread;
     private WindowFrame window;
     private ArrayList<JComponent> componentList;
     private volatile boolean execute;
 
     public Render(WindowFrame window) {
+        this.logStream = new LogStream(Main.logger, "Render");
         this.thread = new Thread(this);
         this.window = window;
         this.componentList = new ArrayList<>();
@@ -21,13 +27,18 @@ public class Render implements Runnable {
     public void run() {
         this.execute = true;
         while (this.execute) {
-            Graphics2D graphics2D = (Graphics2D) this.window.getBufferStrategy().getDrawGraphics();
+            try {
+                Graphics2D graphics2D = (Graphics2D) this.window.getBufferStrategy().getDrawGraphics();
 
-            for (JComponent component : componentList) {
-                component.paint(graphics2D);
+                for (JComponent component : componentList) {
+                    component.paint(graphics2D);
+                }
+
+                window.getBufferStrategy().show();
+
+            } catch (IllegalStateException e) {
+                this.logStream.log(LogType.WARN, "Buffer hasn't been created?");
             }
-
-            window.getBufferStrategy().show();
 
             try {
                 Thread.sleep(16);
