@@ -29,6 +29,7 @@ public class Render implements Runnable {
         while (this.execute) {
             try {
                 Graphics2D graphics2D = (Graphics2D) this.window.getBufferStrategy().getDrawGraphics();
+                graphics2D.translate(this.window.getInsets().left, this.window.getInsets().top);
 
                 for (JComponent component : componentList) {
                     component.paint(graphics2D);
