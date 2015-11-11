@@ -5,7 +5,7 @@ import co.phaeton.gridtest.log.LogType;
 import co.phaeton.gridtest.log.Logger;
 import co.phaeton.gridtest.render.Render;
 import co.phaeton.gridtest.render.RenderGridLines;
-import co.phaeton.gridtest.render.RenderTile;
+import co.phaeton.gridtest.render.RenderTiles;
 import co.phaeton.gridtest.render.WindowFrame;
 
 public class Main {
@@ -21,7 +21,7 @@ public class Main {
         WindowFrame window = new WindowFrame();
 
         Render render = new Render(logger, window);
-        render.getComponentList().add(new RenderTile());
+        render.getComponentList().add(new RenderTiles(logger, mapgrid));
         render.getComponentList().add(new RenderGridLines(mapgrid));
         render.start();
 
