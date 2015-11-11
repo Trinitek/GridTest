@@ -10,10 +10,8 @@ import co.phaeton.gridtest.render.WindowFrame;
 
 public class Main {
 
-    public static Logger logger;
-
     public static void main(String[] args) {
-        logger = new Logger();
+        Logger logger = new Logger();
         LogStream logStream = new LogStream(logger, "Main");
 
         logStream.log(LogType.INFO, "Hello world!");
@@ -22,7 +20,7 @@ public class Main {
 
         WindowFrame window = new WindowFrame();
 
-        Render render = new Render(window);
+        Render render = new Render(logger, window);
         render.getComponentList().add(new RenderTile());
         render.getComponentList().add(new RenderGridLines(mapgrid));
         render.start();

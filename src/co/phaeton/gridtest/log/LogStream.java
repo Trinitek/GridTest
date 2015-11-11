@@ -11,9 +11,9 @@ public class LogStream {
     }
 
     public void log(LogType type, String message) {
-        if ((type == LogType.INFO && logger.info) ||
-            (type == LogType.WARN && logger.warn) ||
-            (type == LogType.ERROR && logger.error))
+        if ((type == LogType.INFO && logger.allowsInfo()) ||
+            (type == LogType.WARN && logger.allowsWarn()) ||
+            (type == LogType.ERROR && logger.allowsError()))
         System.out.println(type.toString() + ": " + this.title + ": " + message);
     }
 
